@@ -33,6 +33,8 @@ int main() {
     int weight = 15;
     int height = 10;
 
+    int food = {0, 0};
+
     int max_snake = 5;
     char input_controller = 's';
     
