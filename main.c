@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 void logo() {
     printf("       /^\\/^\\\n");
@@ -30,10 +31,12 @@ void logo() {
 
 int main() {
     logo();
+    srand(time(NULL));
+
     int weight = 15;
     int height = 10;
 
-    int food = {0, 0};
+    int food[2] = {0, 0};
 
     int max_snake = 5;
     char input_controller = 's';
@@ -48,6 +51,9 @@ int main() {
     body[4][0] = 0; body[4][1] = 1;
 
     bool flag = true;
+
+    food[0] = rand() % weight;
+    food[1] = rand() % height;
 
     while(flag == true) {
         system("cls || clear");
@@ -112,38 +118,43 @@ int main() {
 
             flag = true;
 
+            food[0] = rand() % weight;
+            food[1] = rand() % height;
+
             usleep(555000);
 
         }
 
      {
-        for(int h = 0; h < height; h ++) {
-            for(int w = 0; w < weight; w ++) {
-                if (w == head[0] && h == head[1]) {
-                    printf("1");
-                } else {
-                    bool isBodyPart = false;
-                    for(int i = 0; i < 5; i ++) {
-                      if(h == body[i][1] && w == body[i][0]) {
-                        printf("2");
-                        isBodyPart = true;
-                        break;
-                        }
-                    }
-                    if(!isBodyPart) {
-                        printf(" ");
-                    }
+        for(int h = 0; h < height; h++) {
+        for(int w = 0; w < weight; w++) {
+        if (w == head[0] && h == head[1] && h != 0) {
+            printf("1");
+        } else if (w == food[0] && h == food[1]) {
+            printf("F");
+        } else {
+            bool isBodyPart = false;
+            for(int i = 0; i < max_snake; i++) {
+                if(h == body[i][1] && w == body[i][0]) {
+                    printf("2");
+                    isBodyPart = true;
+                    break;
                 }
             }
-            printf("\n");
+            if(!isBodyPart) {
+                printf(" ");
+            }
         }
+    }
+    printf("\n");
+}
 
         for (int i = 0; i <= weight; i++){
         printf("0");
         }
 
        }
-        
+
         usleep(55000);
     }
     return 0;
